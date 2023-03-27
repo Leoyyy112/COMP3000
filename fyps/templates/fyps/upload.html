@@ -1,0 +1,47 @@
+{% extends "fyps/base.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h2>Upload an image</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" name="upload" class="btn btn-primary">Upload Image</button>
+    </form>
+
+    <div class="container">
+      <div class="row d-flex align-items-start">
+        {% if uploaded_image %}
+          <div class="col text-center">
+            <h2>Uploaded Image</h2>
+            <img src="{{ uploaded_image }}" class="img-fluid">
+          </div>
+        {% endif %}
+
+        {% if result_image %}
+          <div class="col text-center">
+            <div class="card mb-2">
+              <div class="card-body">
+                <h5 class="card-title">Classification Result:</h5>
+                <p class="card-text">{{ classification }}</p>
+              </div>
+            </div>
+            <h2>Result Image</h2>
+            <img src="{{ result_image }}" class="img-fluid">
+            <div class="mt-2">
+              <a href="{{ result_image }}" download="{{ result_image_name }}" class="btn btn-primary">Save File</a>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if uploaded_image %}
+    <form method="post" action="{% url 'fyps:analysis' %}" class="mt-2">
+      {% csrf_token %}
+      <input type="hidden" name="uploaded_image_url" value="{{ uploaded_image }}">
+      <button type="submit" name="analysis" class="btn btn-primary">Analysis</button>
+    </form>
+    {% endif %}
+  </div>
+{% endblock %}

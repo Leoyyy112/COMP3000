@@ -1,0 +1,17 @@
+{% extends "fyps/base.html" %}
+
+{% block page_header %}
+<div class="jumbotron">
+    <h1 class="display-3">Make the diagnosis!</h1>
+    <p class="lead">This is a system for medical image analysis, you can upload your medical
+    image to get a segmentation mask which can help you make early diagnosis.</p>
+    <div class="d-flex">
+        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+        role="button">Register &raquo;</a>
+        <a class="btn btn-lg btn-primary" href="{% url 'users:login' %}"
+        role="button">Login &raquo;</a>
+        <a class="btn btn-lg btn-primary ml-auto" href="{% url 'fyps:image' %}"
+        role="button">Upload Image</a>
+    </div>
+</div>
+{% endblock page_header %}
